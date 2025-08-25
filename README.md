@@ -1,3 +1,1 @@
-# Pak_AFC_F2025
-Class Project Repo
-First edit
+Favorite Drink: Coors Light
