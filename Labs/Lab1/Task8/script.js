@@ -2,25 +2,26 @@
 // Name: Tyler Pak
 // Lab1 - Task8 - Shopping List Operations
 
-// Step 1: Hardcode an array for the shopping list
+// initialize a variable called shoppintList and assign it a hardcoded array of strings
 let shoppingList = ["eggs", "butter", "flour"];
 
-// Step 2: Create a fat arrow function named modifyItem
+// arrow function that takes two parameters and assigns it to a new const variable called modifyItem
 const modifyItem = (list, newItem) => {
-    // Step 3: Add the new item to the end of the array
+    // adds the parameter new item to the parameter list by call Array.push function. Push adds to the end of the array
     list.push(newItem);
 
-    // Step 4: Log the updated array to the console
+    // displays the updated list to console
     console.log("Updated shopping list:", list);
 };
 
-// Step 5: Prompt the user to input a new item
+// calls prompt to ask user for input, returned user input is assigned to new const variable userItem as a string
 const userItem = prompt("Enter a new item to add to the shopping list:");
 
-// Step 6: Validate input (check for empty string)
+// ! is the NOT operator so this condition inverses the truthy or falsey value meaning if userItem is not an empty string, this will pass
 if (!userItem) {
+    //displays error message if above condition passes
     console.log("Error: You must enter a valid item.");
 } else {
-    // Step 7: Call the function with the shopping list and user input
+    // if the condition doesnt pass, call arrow function above and pass the shoppingList array and the userItem as parameters
     modifyItem(shoppingList, userItem);
 }
