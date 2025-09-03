@@ -124,3 +124,10 @@ h1 {
 
 
 }
+
+table {
+    position : absolute;
+    margin-left : 30vw;
+    margin-right : 30vw;
+    padding : 0;
+}
