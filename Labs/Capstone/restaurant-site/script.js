@@ -60,3 +60,4 @@ document.getElementById("nextBtn").addEventListener("click", nextImage);
 
 
 showItem(currentIndex);
+
