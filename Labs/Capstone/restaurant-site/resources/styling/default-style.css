@@ -100,14 +100,6 @@ body {
     margin: 0;
 }
 
-.section-split-center {
-    margin-top : 5vh;
-    margin-bottom : 0;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
 
 .hiring-img {
     border : 8px solid black;
@@ -172,7 +164,7 @@ input.invalid {
 }
 
 #carouselSplit {
-    width : 50%;
+    width : 100%;
     height : 70vh;
     max-height : 600px;
     object-fit: cover;
