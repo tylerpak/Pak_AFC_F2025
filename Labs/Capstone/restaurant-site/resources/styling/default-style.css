@@ -15,6 +15,8 @@ body {
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-size: cover;
+    background-position: center;
+    min-height: 100vh;
 }
 
 /*text for the home page*/
@@ -248,9 +250,8 @@ h1 {
 }
 
 #itemImage {
-    height: 600px;
-    width: 600px;
-    object-fit:cover;
+    height: 500px;
+    object-fit: cover;
     margin-right:20px;
 }
 
