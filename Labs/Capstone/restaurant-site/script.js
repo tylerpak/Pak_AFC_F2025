@@ -1,5 +1,6 @@
+//Script for menu carousel
 const itemImage = document.getElementById("itemImage");
-if(itemImage) {
+if(itemImage) { //only runs if on the menu page, since we are forced to use one script.js
     const menuItems = [
         {
             name: "Straight",
@@ -28,13 +29,13 @@ if(itemImage) {
     const itemDesc = document.getElementById("itemDesc");
     const itemPrice = document.getElementById("itemPrice");
 
-
+    //Using numberformat for currency
     const formatter = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD"
     });
 
-
+    // shows image for current index
     function showItem(index) {
         const item = menuItems[index];
         itemImage.src = item.image;
@@ -44,12 +45,12 @@ if(itemImage) {
         itemPrice.textContent = formatter.format(item.price);
     }
 
-
+    //loads prev image when button is clicked
     function prevImage() {
         currentIndex = (currentIndex - 1 + menuItems.length) % menuItems.length;
         showItem(currentIndex);
     }
-
+    //loads next image when button is clicked
     function nextImage() {
         currentIndex = (currentIndex + 1) % menuItems.length;
         showItem(currentIndex);
@@ -63,10 +64,12 @@ if(itemImage) {
     showItem(currentIndex);
 }
 
+
+//Script for hiring form
 const myForm = document.getElementById("hiring-form");
-if(myForm) {
+if(myForm) { //only runs if on the hiring page since we can only use one script.js
 
-
+    //initialize and assign variables by html element
     const dob = document.getElementById("birthDate")
     const dobError = document.getElementById("birthDateError")
     const phone = document.getElementById("phoneNumber")
@@ -75,6 +78,8 @@ if(myForm) {
     const moreInfoError = document.getElementById("moreInfoError")
     const moreInfoCharCount = document.getElementById("charCounter")
 
+
+    //validation script for date of birth to check age requirement
     dob.addEventListener("input", () => {
         const today = new Date();
         const min = new Date(today).setFullYear(today.getFullYear() - 21);
@@ -90,6 +95,7 @@ if(myForm) {
         }
     });
 
+    //validation for phone number to auto format and check for correct input
     phone.addEventListener("input", () => {
         let value = phone.value;
         const number = value.replace(/\D/g, "");
@@ -118,6 +124,7 @@ if(myForm) {
         }
     });
 
+    //validation of more info field, create 30 char countdown and not allows longer inputs
     moreInfo.addEventListener("input", () => {
         let value = moreInfo.value;
         const max = 30;
@@ -134,10 +141,27 @@ if(myForm) {
         }
     })
 
+    //validation of all JS validated fields on submit, prints successful submission to console
     myForm.addEventListener("submit", (e) => {
         if (dobError.textContent || moreInfoError.textContent || phoneError.textContent) {
             e.preventDefault();
             alert("Please fix the errors before submitting.");
         }
+        else {
+            e.preventDefault();
+            for (let element of myForm.elements) {
+                if (element.type === "radio") {
+                    if (element.checked) {
+                        console.log(`${element.id}: ${element.value}`);
+                    }
+                } else if (element.type === "checkbox") {
+                    if (element.checked) {
+                        console.log(`${element.id}: ${element.value}`);
+                    }
+                } else {
+                    console.log(`${element.id}: ${element.value}`);
+                }
+                }
+            }
     });
 }

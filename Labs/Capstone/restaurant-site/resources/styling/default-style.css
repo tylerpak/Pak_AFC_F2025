@@ -1,4 +1,4 @@
-/* reset */
+
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +9,7 @@ img {
     display: block;
 }
 
+/*background for hiring and menu pages*/
 body {
     background-image: url('../images/background.png');
     background-repeat: no-repeat;
@@ -16,13 +17,14 @@ body {
     background-size: cover;
 }
 
+/*text for the home page*/
 #index-Text {
     font-family: fantasy;
     font-size : 2em;
     text-align: center;
     margin-top: 40px;
 }
-
+/*horizontal rule below the banner image home page*/
 #index-hr {
     accent-color: black;
     width: 80%;
@@ -31,11 +33,12 @@ body {
     border-top: 2px solid black;
 }
 
+/*background for body of home page*/
 #index-body {
     background-color: antiquewhite;
     background-image: none;
 }
-
+/*styling for google font fondamento*/
 .fondamento-regular {
     font-family: "Fondamento", cursive;
     font-weight: 400;
@@ -49,19 +52,18 @@ body {
 }
 
 
-
+/*logo for navbar*/
 .navbar-brand img {
    height: 50px;
     width: 50px;
 }
-
+/*font for navbar links*/
 .nav-link {
     font-family: Fondamento, serif;
 
 }
 
-
-
+/* banner container for home page */
 .banner {
     position : relative;
     width: 100%;
@@ -69,6 +71,7 @@ body {
     overflow: hidden;
 }
 
+/* image in banner container */
 .banner img {
     border : 2px solid black;
     width: 100%;
@@ -79,6 +82,7 @@ body {
     height : auto;
 }
 
+/* Text over banner image on home page */
 .banner-text {
     position: absolute;
     top: 40%;
@@ -100,7 +104,7 @@ body {
     margin: 0;
 }
 
-
+/* image on the hiring page */
 .hiring-img {
     border : 8px solid black;
     width : 600px;
@@ -110,20 +114,27 @@ body {
     padding-bottom: 0;
 }
 
+
+/* styling for the labels and text of the hiring form */
 .form-label,
 .form-text,
 #state-label{
    color : white !important;
 }
 
-.form-select {
-}
-
+/* reset button on hiring form */
 #resetButton {
     background-color : darkred;
     border-color: darkred;
 }
 
+/* styling for my font awesome icon*/
+.fa-poop {
+    position: relative;
+    margin-left: 50%;
+}
+
+/* Styling for my hiring form*/
 .form-check-label{
     color: white;
 }
@@ -148,15 +159,7 @@ input.invalid {
     padding: 15px;
 }
 
-.section-split-center img {
-    border : 8px solid black;
-    width : 50%;
-    height : 70vh;
-    max-height: 600px;
-    object-position: left;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
+/* Styling for carousel on home page for cust reviews*/
 
 .carousel-inner {
     height: 100%;
@@ -221,14 +224,9 @@ h1 {
     font-family: Fondamento, serif;
 }
 
-table {
-    position : absolute;
-    margin-left : 30vw;
-    margin-right : 30vw;
-    padding : 0;
-}
 
 
+/* styling for menu page carousel*/
 
 .menu-carousel {
     margin-top: 30px;
