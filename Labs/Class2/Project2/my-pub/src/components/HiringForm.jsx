@@ -168,6 +168,7 @@ export default function HiringForm() {
                         required
                         pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,12}$"
                     />
+                    <span>8–12 characters; must include at least one uppercase, one lowercase, one number, and one special symbol</span>
                 </FormGroup>
 
                 <FormGroup tag="fieldset">
