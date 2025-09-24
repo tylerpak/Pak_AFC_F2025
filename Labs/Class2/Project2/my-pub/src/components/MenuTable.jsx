@@ -1,4 +1,7 @@
-import { useState } from "react";
+import {
+    Table,
+    Container,
+} from "reactstrap";
 import straightImg from "../assets/images/straightMenu.png";
 import beefImg from "../assets/images/beefMenu.png";
 import chickenImg from "../assets/images/chickenMenu.png";
@@ -22,32 +25,56 @@ const menuItems = [
         price: 42.5,
         image: chickenImg,
     },
+    {
+        name: "The one with catfish",
+        description: "Chunks of catfish, medium rare",
+        price: 55.25,
+        image: chickenImg,
+    },
+    {
+        name: "The one with corn",
+        description: "Vegan option for those so inclined",
+        price: 55.25,
+        image: chickenImg,
+    }
+
 ];
 
-export default function MenuTable() {
-    const [index, setIndex] = useState(0);
+export default function MenuTable({ menuItems }) {
     const formatter = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
     });
 
-    const next = () => setIndex((i) => (i + 1) % menuItems.length);
-    const prev = () => setIndex((i) => (i - 1 + menuItems.length) % menuItems.length);
-
-    const item = menuItems[index];
-
     return (
-        <div className="menu-carousel d-flex align-items-center justify-content-center">
-            <button className="btn btn-dark m-2" onClick={prev}>PREV</button>
-            <div className="d-flex align-items-center flex-column flex-lg-row text-center text-md-start mx-3">
-                <img src={item.image} alt={item.name} className="img-fluid mb-2 mb-md-0" />
-                <div className="ms-md-3">
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-                    <p className="fw-bold">{formatter.format(item.price)}</p>
-                </div>
-            </div>
-            <button className="btn btn-dark m-2" onClick={next}>NEXT</button>
-        </div>
+        <Container className="my-4">
+            <h2 className="text-center mb-4">Our Menu</h2>
+            <Table bordered hover responsive>
+                <thead className="table-dark">
+                <tr>
+                    <th>Image</th>
+                    <th>Dish</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {menuItems.map((item, idx) => (
+                    <tr key={idx}>
+                        <td className="text-center">
+                            <img
+                                src={item.image}
+                                alt={item.name}
+                                style={{ width: "100px", borderRadius: "8px" }}
+                            />
+                        </td>
+                        <td className="fw-bold">{item.name}</td>
+                        <td>{item.description}</td>
+                        <td>{formatter.format(item.price)}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </Table>
+        </Container>
     );
 }

@@ -1,35 +1,40 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarToggler,
+    Collapse,
+    Nav,
+    NavItem,
+} from "reactstrap";
 import logo from "../assets/images/logo.png";
 
 export default function AppNavbar() {
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => setIsOpen(!isOpen);
+
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-            <div className="container-fluid">
-                <Link className="navbar-brand" to="/">
-                    <img src={logo} alt="logo" />
-                </Link>
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/menu">Menu</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/hiring">Hiring</Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <Navbar color="dark" dark expand="lg" className="mb-3">
+            <NavbarBrand tag={Link} to="/">
+                <img src={logo} alt="logo" height="40" />
+            </NavbarBrand>
+
+            <NavbarToggler onClick={toggle} />
+
+            <Collapse isOpen={isOpen} navbar>
+                <Nav className="me-auto" navbar>
+                    <NavItem>
+                        <Link className="nav-link" to="/">Home</Link>
+                    </NavItem>
+                    <NavItem>
+                        <Link className="nav-link" to="/menu">Menu</Link>
+                    </NavItem>
+                    <NavItem>
+                        <Link className="nav-link" to="/hiring">Hiring</Link>
+                    </NavItem>
+                </Nav>
+            </Collapse>
+        </Navbar>
     );
 }

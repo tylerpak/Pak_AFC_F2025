@@ -1,5 +1,14 @@
 import { useState } from "react";
-import bartender from "../assets/images/bartender.png";
+import {
+    Form,
+    FormGroup,
+    Label,
+    Input,
+    Button,
+    Row,
+    Col,
+    FormFeedback,
+} from "reactstrap";
 
 export default function HiringForm() {
     const [dobError, setDobError] = useState("");
@@ -7,19 +16,17 @@ export default function HiringForm() {
     const [moreInfoError, setMoreInfoError] = useState("");
     const [charCount, setCharCount] = useState(30);
 
-    const handleDobChange = (e) => {
-        const today = new Date();
-        const min = new Date(today).setFullYear(today.getFullYear() - 21);
-        const max = new Date(today).setFullYear(today.getFullYear() - 99);
-        const entered = new Date(e.target.value);
-
-        if (entered < max || entered > min) {
-            setDobError("You are outside of the age requirements. Sorry!");
+    // ✅ Validate age from numeric input
+    const handleAgeChange = (e) => {
+        const age = Number(e.target.value);
+        if (age < 21 || age > 99) {
+            setDobError("You must be between 21 and 99 years old.");
         } else {
             setDobError("");
         }
     };
 
+    // ✅ Validate + format phone number
     const handlePhoneChange = (e) => {
         let value = e.target.value.replace(/\D/g, "");
         let formatted = "";
@@ -37,6 +44,7 @@ export default function HiringForm() {
         }
     };
 
+    // ✅ Validate more info char count
     const handleMoreInfoChange = (e) => {
         const max = 30;
         const length = e.target.value.length;
@@ -49,6 +57,7 @@ export default function HiringForm() {
         }
     };
 
+    // ✅ Handle submit
     const handleSubmit = (e) => {
         e.preventDefault();
         if (dobError || phoneError || moreInfoError) {
@@ -63,35 +72,155 @@ export default function HiringForm() {
     };
 
     return (
-        <div className="container my-2">
-            <div className="row align-items-center">
-                <div className="col-md-6 text-center mb-3 mb-md-0">
-                    <img src={bartender} alt="bartender" className="img-fluid hiring-img" />
-                </div>
-                <div className="col-md-6">
-                    <form onSubmit={handleSubmit}>
-                        {/* Example input */}
-                        <div className="mb-3">
-                            <label className="form-label">Date of Birth</label>
-                            <input type="date" className="form-control" name="birthDate" onChange={handleDobChange} required />
-                            <span className="input-helper">You must be 21–99 years of age</span>
-                            <span className="error">{dobError}</span>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Phone Number</label>
-                            <input type="text" className="form-control" name="phone" onInput={handlePhoneChange} required />
-                            <span className="error">{phoneError}</span>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">More Info</label>
-                            <textarea name="moreInfo" className="form-control" rows="4" onInput={handleMoreInfoChange}></textarea>
-                            <span className="input-helper">You have {charCount} characters remaining</span>
-                            <span className="error">{moreInfoError}</span>
-                        </div>
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
+        <div className="container my-4">
+            <Form onSubmit={handleSubmit}>
+                <Row>
+                    <Col md={6}>
+                        <FormGroup>
+                            <Label for="firstName">First Name</Label>
+                            <Input
+                                type="text"
+                                name="firstName"
+                                id="firstName"
+                                minLength="1"
+                                maxLength="20"
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col md={6}>
+                        <FormGroup>
+                            <Label for="lastName">Last Name</Label>
+                            <Input
+                                type="text"
+                                name="lastName"
+                                id="lastName"
+                                minLength="1"
+                                maxLength="20"
+                            />
+                        </FormGroup>
+                    </Col>
+                </Row>
+
+                <FormGroup>
+                    <Label for="address1">Address 1</Label>
+                    <Input type="text" name="address1" id="address1" maxLength="50" required />
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="city">City</Label>
+                    <Input type="text" name="city" id="city" maxLength="29" required />
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="state">State</Label>
+                    <Input type="select" name="state" id="state" required>
+                        <option value="">-- Select --</option>
+                        <option value="CA">CA</option>
+                        <option value="CO">CO</option>
+                        <option value="TX">TX</option>
+                    </Input>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="age">Age</Label>
+                    <Input
+                        type="number"
+                        name="age"
+                        id="age"
+                        min="21"
+                        max="99"
+                        defaultValue="21"
+                        onChange={handleAgeChange}
+                        required
+                        invalid={!!dobError}
+                    />
+                    <FormFeedback>{dobError}</FormFeedback>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="phone">Phone Number</Label>
+                    <Input
+                        type="text"
+                        name="phone"
+                        id="phone"
+                        placeholder="123-456-7890"
+                        onInput={handlePhoneChange}
+                        required
+                        invalid={!!phoneError}
+                    />
+                    <FormFeedback>{phoneError}</FormFeedback>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="email">Email</Label>
+                    <Input type="email" name="email" id="email" required />
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="password">Password</Label>
+                    <Input
+                        type="password"
+                        name="password"
+                        id="password"
+                        minLength="8"
+                        maxLength="12"
+                        required
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,12}$"
+                    />
+                </FormGroup>
+
+                <FormGroup tag="fieldset">
+                    <legend>Married</legend>
+                    <FormGroup check>
+                        <Input type="radio" name="married" id="marriedYes" value="yes" />
+                        <Label check for="marriedYes">
+                            Married
+                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                        <Input
+                            type="radio"
+                            name="married"
+                            id="marriedNo"
+                            value="no"
+                            defaultChecked
+                        />
+                        <Label check for="marriedNo">
+                            Single
+                        </Label>
+                    </FormGroup>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="moreInfo">More Info</Label>
+                    <Input
+                        type="textarea"
+                        name="moreInfo"
+                        id="moreInfo"
+                        rows="4"
+                        onInput={handleMoreInfoChange}
+                        invalid={!!moreInfoError}
+                    />
+                    <FormFeedback>{moreInfoError}</FormFeedback>
+                    <small className="text-muted">
+                        You have {charCount} characters remaining
+                    </small>
+                </FormGroup>
+
+                <Row>
+                    <Col md={6}>
+                        <Button type="reset" color="secondary" className="w-100">
+                            Reset
+                        </Button>
+                    </Col>
+                    <Col md={6}>
+                        <Button type="submit" color="primary" className="w-100">
+                            Submit
+                        </Button>
+                    </Col>
+                </Row>
+            </Form>
         </div>
     );
 }
