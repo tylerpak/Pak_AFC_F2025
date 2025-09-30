@@ -39,7 +39,7 @@ const menuItems = [
 export default function Menu() {
     return (
         <div>
-            <h2 id="alt-header">Menu</h2>
+            <h2 className="text-center mb-4">Our Menu</h2>
             <MenuTable menuItems={menuItems} />
         </div>
     );

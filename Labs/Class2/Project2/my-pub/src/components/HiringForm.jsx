@@ -16,7 +16,7 @@ export default function HiringForm() {
     const [moreInfoError, setMoreInfoError] = useState("");
     const [charCount, setCharCount] = useState(30);
 
-    // ✅ Validate age from numeric input
+
     const handleAgeChange = (e) => {
         const age = Number(e.target.value);
         if (age < 21 || age > 99) {
@@ -26,7 +26,7 @@ export default function HiringForm() {
         }
     };
 
-    // ✅ Validate + format phone number
+
     const handlePhoneChange = (e) => {
         let value = e.target.value.replace(/\D/g, "");
         let formatted = "";
@@ -44,7 +44,7 @@ export default function HiringForm() {
         }
     };
 
-    // ✅ Validate more info char count
+
     const handleMoreInfoChange = (e) => {
         const max = 30;
         const length = e.target.value.length;
@@ -57,7 +57,6 @@ export default function HiringForm() {
         }
     };
 
-    // ✅ Handle submit
     const handleSubmit = (e) => {
         e.preventDefault();
         if (dobError || phoneError || moreInfoError) {
