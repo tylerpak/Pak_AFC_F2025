@@ -23,19 +23,24 @@ const schema = yup.object({
     age: yup
         .number()
         .typeError("Age must be a number")
-        .min(21, "You must be at least 21")
-        .max(99, "Age must be less than 100")
+        .min(25, "You must be at least 25")
+        .max(89, "Age must be less than 90")
         .required("Age is required"),
     phone: yup
         .string()
         .matches(/^\d{3}-\d{3}-\d{4}$/, "Phone must be in format 123-456-7890")
         .required("Phone number is required"),
-    email: yup.string().email("Invalid email").required("Email is required"),
+    email: yup.string()
+        .matches(
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            "Please enter a valid email address"
+        )
+        .required("Email is required"),
     password: yup
         .string()
         .matches(
             /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,12}$/,
-            "Password must include uppercase, lowercase, number, and special character"
+            "Password must be 8-12 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 special character"
         )
         .required("Password is required"),
     married: yup.string().required("Please select an option"),
@@ -47,15 +52,26 @@ export default function HiringForm() {
     const {
         register,
         handleSubmit,
+        setValue,
         control,
         formState: { errors },
         watch,
         reset,
     } = useForm({
         resolver: yupResolver(schema),
-        defaultValues: { age: 21, married: "no", phone: "" },
+        defaultValues: { age: 25, married: "no"},
         mode: "onChange",
     });
+
+    //Auto format phone number
+    const handlePhoneChange = (e) => {
+        let value = e.target.value.replace(/\D/g, "");
+        let formatted = "";
+        if(value.length > 0) formatted = value.substring(0, 3);
+        if(value.length >= 4) formatted += "-" + value.substring(3, 6);
+        if(value.length >= 7) formatted += "-" + value.substring(6, 10);
+        setValue("phone", formatted,{ shouldValidate: true})
+    }
 
     //function passes input ref into innerRef for ReactStrap
     const r = (name) => {
@@ -64,9 +80,9 @@ export default function HiringForm() {
         return { innerRef: ref, ...rest };
     };
 
-    //print form data to console, alert user
+    //log form data as JSON object to console on submission and alert user
     const onSubmit = (data) => {
-        console.log("Form submitted:", data);
+        console.log(data);
         alert("Form submitted successfully! (check console)");
     };
 
@@ -169,33 +185,16 @@ export default function HiringForm() {
                     <FormFeedback>{errors.age?.message}</FormFeedback>
                 </FormGroup>
 
-                {/* Phone with auto-formatting, controlled via Controller */}
                 <FormGroup>
                     <Label for="phone">Phone Number</Label>
-                    <Controller
-                        name="phone"
-                        control={control}
-                        render={({ field }) => (
-                            <Input
-                                id="phone"
-                                type="text"
-                                name={field.name}
-                                innerRef={field.ref}
-                                placeholder="123-456-7890"
-                                value={field.value || ""}
-                                maxLength={12} // "123-456-7890" length
-                                onBlur={field.onBlur}
-                                onChange={(e) => {
-                                    const digits = e.target.value.replace(/\D/g, "");
-                                    let formatted = "";
-                                    if (digits.length > 0) formatted = digits.substring(0, 3);
-                                    if (digits.length >= 4) formatted += "-" + digits.substring(3, 6);
-                                    if (digits.length >= 7) formatted += "-" + digits.substring(6, 10);
-                                    field.onChange(formatted); // feed formatted value to RHF
-                                }}
-                                invalid={!!errors.phone}
-                            />
-                        )}
+                    <Input
+                        id="phone"
+                        type="text"
+                        placeholder="123-456-7890"
+                        value={watch("phone") || ""}
+                        {...register("phone")}
+                        onChange={handlePhoneChange}
+                        invalid={!!errors.phone}
                     />
                     <FormFeedback>{errors.phone?.message}</FormFeedback>
                 </FormGroup>
