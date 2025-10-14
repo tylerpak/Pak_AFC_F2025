@@ -2,6 +2,7 @@
 *.class
 .idea
 .DS_Store
+.env
 
 # Log file
 *.log
