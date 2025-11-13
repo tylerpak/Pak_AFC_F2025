@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "employees")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String username;
@@ -14,6 +14,11 @@ public class Employee {
 
 
     public Employee() {
+    }
+
+    public Employee(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public long getId() {
