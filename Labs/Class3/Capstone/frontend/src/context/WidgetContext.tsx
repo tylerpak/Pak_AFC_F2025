@@ -97,6 +97,7 @@ export const WidgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             newCart.set(widget, qty);
         }
         setCart(newCart);
+        toast.success("Added Widget to Cart!")
     }
 
     const removeFromCart = (widget: Widget, qty: number) => {
@@ -113,7 +114,7 @@ export const WidgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         }
 
         setCart(newCart);
-
+        toast.success("Removed Widget from Cart!")
     }
 
     const addWidget = async (name: string, cost: number, description: string, specs: string, image: File) => {

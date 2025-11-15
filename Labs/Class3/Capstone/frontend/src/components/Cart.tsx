@@ -21,7 +21,7 @@ export default function Cart() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant={"outline"} className={"text-black"}>Cart</Button>
+                <Button variant={"outline"} className={"text-black px-3"}>Cart</Button>
             </DialogTrigger>
             <DialogContent className={"sm:max-w-[425px]"}>
                 <DialogHeader>
@@ -31,7 +31,7 @@ export default function Cart() {
                     {cartItems.map((widget) => (
                         <li className={"border-b border-black"}>
                             <div className={"flex gap-12 justify-center"}>
-                                <img src={`/images/${widget.image}`} height="50" width={"50"} alt={widget.name}/>
+                                <img src={`${widget.image}`} height="50" width={"50"} alt={widget.name}/>
                                 {widget.name}
                                 <div>
                                     Qty: {cart.get(widget)}

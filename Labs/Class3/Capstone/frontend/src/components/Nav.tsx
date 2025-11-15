@@ -9,21 +9,23 @@ const Nav = () => {
         <nav className="fixed top-0 left-0 w-full bg-ring text-primary-foreground shadow-md z-50 backdrop-blur-md">
             <div className="flex items-center px-8 py-3">
 
-                <Link to="/" className="font-bold text-lg">
+                <Link to="/" className="font-bold text-lg px-3">
                    <img alt="home" src={"/images/logo.png"} height={"50"} width={"50"}/>
                 </Link>
-                <Link to={"Widgets"} className={"font-bold text-lg px-10"}>
+                <Link to={"Widgets"} className={"font-bold text-lg px-3"}>
                     Browse
                 </Link>
-                <Cart/>
-                {!user && <Link to={"Login"} className={"font-bold text-lg px-10"}>
+                <div className={"px-3"}>
+                    <Cart/>
+                </div>
+                {!user && <Link to={"Login"} className={"font-bold text-lg px-3"}>
                     Employee Log In
                 </Link>}
-                {!user && <Link to={"SignUp"} className={"font-bold text-lg px-10"}>
+                {!user && <Link to={"SignUp"} className={"font-bold text-lg px-3"}>
                     Employee Sign Up
                 </Link>}
-                {user && <Button onClick={logOut} className={"px-8"}>Log Out</Button>}
-                {user && <Link to={"AddWidget"} className={"font-bold text-lg px-10"}>
+                {user && <Button onClick={logOut} className={"px-3"}>Log Out</Button>}
+                {user && <Link to={"AddWidget"} className={"font-bold text-lg px-3"}>
                     Add Widget</Link>}
 
                 <div className="flex space-x-4">
