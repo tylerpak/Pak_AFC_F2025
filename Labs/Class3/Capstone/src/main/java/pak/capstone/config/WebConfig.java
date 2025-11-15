@@ -4,6 +4,7 @@ package pak.capstone.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -13,10 +14,16 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")   // allow all paths
-                        .allowedOrigins("http://localhost:5174","http://localhost:5173", "http://localhost:3000") // your frontend
-                        .allowedMethods("*")   // allow GET, POST, etc.
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:5174","http://localhost:5173", "http://localhost:3000")
+                        .allowedMethods("*")
                         .allowCredentials(true);
+            }
+
+            @Override
+            public void addResourceHandlers(ResourceHandlerRegistry registry) {
+                registry.addResourceHandler("/images/**")
+                        .addResourceLocations("file:uploads/");
             }
         };
     }

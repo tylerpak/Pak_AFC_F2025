@@ -27,7 +27,10 @@ interface WidgetContextType {
     cart: Map<Widget, number>;
     handleAddToCart: (widget: Widget, qty: number) => void;
     removeFromCart: (widget: Widget, qty: number) => void;
-    addWidget: (name: string, cost: number, description: string, specs: string) => void;
+    addWidget: (name: string, cost: number, description: string, specs: string, image: File) => void;
+    deleteWidget: (id: number) => void;
+    updateWidget: (widget: Widget) => void;
+    updateWidgetImage: (id: number, image: File) => void;
 }
 
 const WidgetContext = createContext<WidgetContextType | undefined>(undefined);
@@ -113,7 +116,7 @@ export const WidgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     }
 
-    const addWidget = async (name: string, cost: number, description: string, specs: string) => {
+    const addWidget = async (name: string, cost: number, description: string, specs: string, image: File) => {
         if(!cost) {
             toast.error("Please insert a number for cost");
             return;
@@ -141,6 +144,69 @@ export const WidgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             toast.error("Failed to add Widget");
             return;
         }
+        const addedWidget =  await res.json();
+
+        const formData = new FormData();
+        formData.append("image", image);
+
+        const res2 = await fetch("http://localhost:8080/api/widgets/image/" + addedWidget.id, {
+            method: "POST",
+            body: formData,
+        })
+
+        if(!res2.ok) {
+            toast.error("Failed to upload image");
+            return;
+        }
+        else {
+            toast.success("Added Widget!")
+        }
+    }
+
+    const deleteWidget = async (id: number) => {
+        const res = await fetch("http://localhost:8080/api/widgets/delete/" + id, {
+            method: "DELETE"
+        })
+
+        if(!res.ok) {
+            toast.error("Failed to delete widget");
+        }
+
+        fetchAllWidgets();
+    }
+
+    const updateWidget = async (widget: Widget) => {
+        const res = await fetch("http://localhost:8080/api/widgets/save", {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(widget),
+        })
+
+        if(!res.ok) {
+            toast.error("Failed to add Widget");
+            return;
+        }
+        else {
+            toast.success("Widget edited!")
+        }
+    }
+
+    const updateWidgetImage = async (id: number, image: File) => {
+        const formData = new FormData();
+        formData.append("image", image);
+
+        const res2 = await fetch("http://localhost:8080/api/widgets/image/" + id, {
+            method: "POST",
+            body: formData,
+        })
+
+        if(!res2.ok) {
+            toast.error("Failed to upload image");
+            return;
+        }
+        else {
+            toast.success("Added Widget!")
+        }
     }
 
 
@@ -150,7 +216,7 @@ export const WidgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }, []);
 
     return (
-        <WidgetContext.Provider value={{ topWidgets, getWidgetById, loading, refreshWidgets: fetchTopWidgets, widgets, fetchAllWidgets, cart, handleAddToCart, removeFromCart, addWidget}}>
+        <WidgetContext.Provider value={{ topWidgets, getWidgetById, loading, refreshWidgets: fetchTopWidgets, widgets, fetchAllWidgets, cart, handleAddToCart, removeFromCart, addWidget, deleteWidget, updateWidget, updateWidgetImage}}>
             {children}
         </WidgetContext.Provider>
     );

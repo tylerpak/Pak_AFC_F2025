@@ -6,13 +6,15 @@ import {Input} from "@/components/ui/input"
 
 export default function Results() {
     const [displayWidgets, setDisplayWidgets] = useState<Widget[] | null>(null)
-    const {widgets} = useWidgets();
+    const {widgets, fetchAllWidgets} = useWidgets();
 
     useEffect(() => {
-        if (displayWidgets) return;
-        setDisplayWidgets(widgets);
-        console.log(displayWidgets);
+        fetchAllWidgets();
 
+    }, []);
+
+    useEffect(() => {
+        setDisplayWidgets(widgets)
     }, [widgets]);
 
 
@@ -26,7 +28,7 @@ export default function Results() {
     return (
         <div className={"grid-col-1"}>
             <div className={"w-1/3 justify-center py-8"}>
-                <Input type={"search"} onChange={handleSearch}placeholder={"Search"}/>
+                <Input type={"search"} onChange={handleSearch}      placeholder={"Search"}/>
             </div>
             <div className={"grid grid-cols-4 gap-4"}>
                 {displayWidgets?.map((widget) => (

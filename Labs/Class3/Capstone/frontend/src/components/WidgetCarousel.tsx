@@ -21,7 +21,7 @@ export function WidgetCarousel({ widgets }: WidgetCarouselProps) {
                         <div className="w-100 h-140 p-4 bg-white shadow-md rounded-lg flex flex-col justify-between items-center">
                             <Link to={`/widget/${widget.id}`} className="flex-1 flex justify-center items-center">
                                 <img
-                                    src={`/images/${widget.image}`}
+                                    src={`${widget.image}`}
                                     alt={widget.name}
                                     className="max-w-full max-h-full object-contain rounded-md"
                                 />

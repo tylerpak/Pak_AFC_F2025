@@ -25,7 +25,7 @@ export default function SignUp() {
 
 
     return(
-        <div className="w-screen h-screen flex items-center justify-center">
+        <div className="flex items-center justify-center">
             <div className="w-full max-w-md bg-card p-6 rounded-lg">
                 <h2 className="text-2xl text-card-foreground font-bold text-center mb-6">Sign Up for Employee Account</h2>
                 <form onSubmit={(e) => { handleSignUp(e)}}>

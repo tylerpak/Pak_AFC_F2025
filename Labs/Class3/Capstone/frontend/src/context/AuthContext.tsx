@@ -23,10 +23,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [user, setUser] = useState<Employee | null>(null);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const thisUser = sessionStorage.getItem("user");
+        if(thisUser)
+        setUser(JSON.parse(thisUser) as Employee);
+    }, []);
 
     function logOut() {
         setUser(null)
+        sessionStorage.removeItem("user")
     }
+
     const login = async (username: string, password: string) => {
         const res = await fetch("http://localhost:8080/api/widgets/login", {
             method: "POST",
@@ -41,6 +48,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         const data = await res.json();
         setUser(data);
+        sessionStorage.setItem("user", JSON.stringify(data));
         toast("Successfully logged in", {className: "bg-card text-card-foreground border-border"})
         navigate("/");
         console.log("Successfully logged in " + data.userId);
@@ -59,6 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
         const data = await res.json();
         setUser(data);
+        sessionStorage.setItem("user", JSON.stringify(data));
         toast("Successfully signed up and logged in", {className: "bg-card text-card-foreground border-border"});
         navigate("/");
     }

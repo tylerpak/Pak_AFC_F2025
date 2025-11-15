@@ -5,8 +5,10 @@ const Layout = ({ children }: PropsWithChildren) => {
     return (
         <>
             <Nav />
-            <main className="pt-16 min-h-screen w-full">
-                {children}
+            <main className="pt-16 min-h-screen flex justify-center">
+                <div className="max-w-4xl w-full px-4">
+                    {children}
+                </div>
             </main>
         </>
     );

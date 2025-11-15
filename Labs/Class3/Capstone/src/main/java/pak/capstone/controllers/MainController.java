@@ -3,12 +3,15 @@ package pak.capstone.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pak.capstone.dto.LoginDTO;
 import pak.capstone.model.Employee;
 import pak.capstone.model.Widget;
 import pak.capstone.service.EmployeeService;
 import pak.capstone.service.WidgetService;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.IllegalFormatException;
 import java.util.List;
@@ -69,5 +72,15 @@ public class MainController {
     @DeleteMapping("/widgets/delete/{id}")
     public void deleteWidget(@PathVariable("id") Long id) {
         widgetService.delete(id);
+    }
+
+    @PostMapping("/widgets/image/{id}")
+    public ResponseEntity<Void> uploadImage(@RequestParam MultipartFile image, @PathVariable Long id) {
+        try {
+            widgetService.uploadImage(image, id);
+            return ResponseEntity.ok().build();
+        }catch(IOException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

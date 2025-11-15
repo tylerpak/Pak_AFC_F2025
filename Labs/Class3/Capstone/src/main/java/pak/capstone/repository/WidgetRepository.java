@@ -12,4 +12,7 @@ public interface WidgetRepository extends JpaRepository<Widget, Long> {
 
    List<Widget> findTop5ByOrderByPurchasesDesc();
 
+    boolean existsWidgetById(long id);
+
+    Widget findWidgetById(long id);
 }
