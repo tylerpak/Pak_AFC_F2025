@@ -21,7 +21,7 @@ export default function Cart() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant={"outline"} className={"text-black px-3"}>Cart</Button>
+                <Button variant={"link"} className={"text-white px-3"}>Cart</Button>
             </DialogTrigger>
             <DialogContent className={"sm:max-w-[425px]"}>
                 <DialogHeader>

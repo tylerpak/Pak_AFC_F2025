@@ -54,7 +54,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #ffffff;
   text-decoration: inherit;
 }
 a:hover {
@@ -63,7 +63,8 @@ a:hover {
 
 body {
   margin: 0;
-  background-color: #b0abab;
+  background-image: url("../public/images/background.png");
+  background-size: contain;
   min-height: 100%;
 }
 

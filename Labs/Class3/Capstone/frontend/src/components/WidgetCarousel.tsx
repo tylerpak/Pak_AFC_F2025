@@ -18,7 +18,7 @@ export function WidgetCarousel({ widgets }: WidgetCarouselProps) {
             <CarouselContent className="h-150">
                 {widgets.map((widget) => (
                     <CarouselItem key={widget.id} className="w-full h-full flex justify-center items-center">
-                        <div className="w-100 h-140 p-4 bg-white shadow-md rounded-lg flex flex-col justify-between items-center">
+                        <div className="w-100 h-140 p-4 bg-orange-800 shadow-md rounded-lg flex flex-col justify-between items-center">
                             <Link to={`/widget/${widget.id}`} className="flex-1 flex justify-center items-center">
                                 <img
                                     src={`${widget.image}`}

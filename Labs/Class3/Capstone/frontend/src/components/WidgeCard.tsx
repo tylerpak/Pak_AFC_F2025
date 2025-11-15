@@ -15,7 +15,7 @@ const WidgetCard =  ({widget}: WidgetCardProps) => {
     const {handleAddToCart, deleteWidget} = useWidgets();
     const {user} = useAuth();
     return (
-        <Card className={"w-full max-w-sm relative top-0 left-0"}>
+        <Card className={"w-full max-w-sm relative top-0 left-0 bg-orange-800"}>
             <CardHeader>
                 <CardTitle>
                     {widget.name}

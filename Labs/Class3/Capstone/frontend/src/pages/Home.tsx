@@ -9,7 +9,7 @@ export default function Home() {
 
     return (
         <div className="py-10">
-            <h1 className="text-2xl font-bold mb-6 text-center">Top 5 Bestselling Widgets</h1>
+            <h1 className="text-2xl font-bold mb-6 text-center text-white">Top 5 Bestselling Widgets</h1>
             <WidgetCarousel widgets={topWidgets} />
         </div>
     );
